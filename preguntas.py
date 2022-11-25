@@ -21,8 +21,15 @@ def pregunta_01():
     214
 
     """
-    return
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [l.replace("\n", "") for l in data]
+    suma = 0
 
+    for l in data:
+        suma += int(l[2])
+
+    return suma
 
 def pregunta_02():
     """
@@ -39,7 +46,23 @@ def pregunta_02():
     ]
 
     """
-    return
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [l.replace("\n", "") for l in data]
+    data = sorted([l[0] for l in data])
+    
+    dic={}
+    
+    for l in data:
+        clave = l[0]
+        if clave in dic:
+            dic[clave]+=1
+        else:
+            dic[clave]=1
+    
+    respuesta = list(dic.items())
+
+    return respuesta
 
 
 def pregunta_03():
@@ -57,7 +80,25 @@ def pregunta_03():
     ]
 
     """
-    return
+
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [l.replace("\n", "") for l in data]
+
+    dic={}
+
+    for l in data:
+        l = l.split()
+        clave = l[0]
+        if clave in dic:
+            dic[clave] += int(l[1])
+        else:
+            dic[clave] = int(l[1])
+    
+    respuesta = list(dic.items())
+    respuesta.sort()
+
+    return respuesta
 
 
 def pregunta_04():
@@ -82,7 +123,26 @@ def pregunta_04():
     ]
 
     """
-    return
+
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [l.replace("\n", "") for l in data]
+
+    dic={}
+
+    for l in data:
+        l = l.split()
+        fecha = l[2].split('-')
+        clave = fecha[1]
+        if clave in dic:
+            dic[clave] += 1
+        else:
+            dic[clave] = 1
+    
+    respuesta = list(dic.items())
+    respuesta.sort()
+
+    return respuesta
 
 
 def pregunta_05():
@@ -100,7 +160,26 @@ def pregunta_05():
     ]
 
     """
-    return
+
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [l.replace("\n", "") for l in data]
+
+    dic={}
+    for l in data:
+        l = l.split()
+        clave = l[0]
+        n = int(l[1])
+        if clave in dic:
+            if n>dic[clave][0]:
+                dic[clave][0]=n
+            if n<dic[clave][1]:
+                dic[clave][1]=n
+        else:
+            dic[clave]=[n,n]
+        respuesta = [(c, v[0],v[1]) for c,v in dic.items()]
+        respuesta.sort()
+    return respuesta
 
 
 def pregunta_06():
@@ -125,7 +204,28 @@ def pregunta_06():
     ]
 
     """
-    return
+
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [l.replace("\n", "") for l in data]
+
+    dic={}
+    for l in data:
+        l = l.split()
+        l = l[4].split(',')
+        for e in l:
+            clave = e[:3]
+            n = int(e[4:])
+            if clave in dic:
+                if n<dic[clave][0]:
+                    dic[clave][0]=n
+                if n>dic[clave][1]:
+                    dic[clave][1]=n
+            else:
+                dic[clave]=[n,n]
+        respuesta = [(c, v[0],v[1]) for c,v in dic.items()]
+        respuesta.sort()
+    return respuesta
 
 
 def pregunta_07():
@@ -149,7 +249,24 @@ def pregunta_07():
     ]
 
     """
-    return
+
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [l.replace("\n", "") for l in data]
+
+    dic={}
+    for l in data:
+        l = l.split()
+        clave = int(l[1])
+        letra = l[0]
+
+        if clave in dic:
+            dic[clave].append(letra)
+        else:
+            dic[clave]=[letra]
+        respuesta = [(c, v) for c,v in dic.items()]
+        respuesta.sort()
+    return respuesta
 
 
 def pregunta_08():
@@ -174,7 +291,26 @@ def pregunta_08():
     ]
 
     """
-    return
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [l.replace("\n", "") for l in data]
+
+    dic={}
+    for l in data:
+        l = l.split()
+        clave = int(l[1])
+        letra = l[0]
+
+        if clave in dic:
+            if letra not in dic[clave]:
+                dic[clave].append(letra)
+                dic[clave].sort()
+        else:
+            dic[clave]=[letra]
+        respuesta = [(c, v) for c,v in dic.items()]
+        respuesta.sort()
+    return respuesta
+
 
 
 def pregunta_09():
@@ -197,7 +333,27 @@ def pregunta_09():
     }
 
     """
-    return
+
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [l.replace("\n", "") for l in data]
+
+    dic={}
+    for l in data:
+        l = l.split()
+        l = l[4].split(',')
+        for e in l:
+            clave = e[:3]
+            if clave in dic:
+                dic[clave]+=1
+            else:
+                dic[clave]=1
+    
+    sorted_keys = sorted(dic.keys())
+    sorted_dic = {}
+    for key in sorted_keys:
+        sorted_dic[key] = dic[key]
+    return sorted_dic
 
 
 def pregunta_10():
@@ -218,7 +374,18 @@ def pregunta_10():
 
 
     """
-    return
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [l.replace("\n", "") for l in data]
+    respuesta = []
+    for l in data:
+        l = l.split()
+        clave=l[0]
+        t1 = len(l[3].split(','))
+        t2 = len(l[4].split(','))
+        respuesta.append((clave,t1,t2))
+
+    return respuesta
 
 
 def pregunta_11():
@@ -236,10 +403,27 @@ def pregunta_11():
         "f": 134,
         "g": 35,
     }
-
-
     """
-    return
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [l.replace("\n", "") for l in data]
+    dic = {}
+    for l in data:
+        l=l.split()
+        letras = l[3].split(',')
+        n = int(l[1])
+        for letra in letras:
+            if letra in dic:
+                dic[letra]+=n
+            else:
+                dic[letra]=n
+    
+    sorted_keys = sorted(dic.keys())
+    sorted_dic = {}
+    for key in sorted_keys:
+        sorted_dic[key] = dic[key]
+
+    return sorted_dic
 
 
 def pregunta_12():
@@ -257,4 +441,25 @@ def pregunta_12():
     }
 
     """
-    return
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [l.replace("\n", "") for l in data]
+    dic = {}
+    for l in data:
+        l = l.split()
+        clave = l[0]
+        valores = l[4].split(',')
+        suma = 0
+        for v in valores:
+            suma+=int(v[4:])
+        if clave in dic:
+            dic[clave]+=suma
+        else:
+            dic[clave]=suma
+            
+    sorted_keys = sorted(dic.keys())
+    sorted_dic = {}
+    for key in sorted_keys:
+        sorted_dic[key] = dic[key]
+
+    return sorted_dic
